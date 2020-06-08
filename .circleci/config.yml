@@ -73,7 +73,7 @@ workflows:
             - test
           filters:
             tags:
-              only: /10.\d+.\d+(?!-\w+.\d)/
+              only: /10\.\d+\.\d+(?!-\w+\.\d)/
             branches:
               ignore: /.*/
       - publish-next:
@@ -82,6 +82,6 @@ workflows:
             - test
           filters:
             tags:
-              only: /10\.0\.0-beta\./
+              only: /10\.\d+\.\d+(-\w+\.\d)/
             branches:
               ignore: /.*/
