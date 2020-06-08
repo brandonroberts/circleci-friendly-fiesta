@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "echo \"Build complete\" && exit 0",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "deploy-next": "echo \"Deployed next\" && exit 0",
+    "deploy-stable": "echo \"Deployed next\" && exit 0"
   },
   "keywords": [],
   "author": "",

@@ -15,6 +15,25 @@ jobs:
           steps:
             - run: npm install
             - run: npm test
+    
+  publish-stable:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm run deploy-stable
+
+  publish-next:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm run deploy-next
+            
 workflows:
   version: 2
   build-test:
