@@ -43,19 +43,19 @@ workflows:
             tags:
               only: /.*/
       - build-and-test
-      - publish-stable:
-          requires:
-            - install
-          filters:
-            tags:
-              only: /10.\d+.\d+(?!-\w+.\d)/
-            branches:
-              ignore: /.*/
-      - publish-next:
-          requires:
-            - install
-          filters:
-            tags:
-              only: /10.\d+.\d+(-\w+.\d)/
-            branches:
-              ignore: /.*/
+      # - publish-stable:
+      #     requires:
+      #       - install
+      #     filters:
+      #       tags:
+      #         only: /10.\d+.\d+(?!-\w+.\d)/
+      #       branches:
+      #         ignore: /.*/
+      # - publish-next:
+      #     requires:
+      #       - install
+      #     filters:
+      #       tags:
+      #         only: /10.\d+.\d+(-\w+.\d)/
+      #       branches:
+      #         ignore: /.*/
