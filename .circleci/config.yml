@@ -11,14 +11,22 @@ jobs:
           steps:
             - run: npm install
 
-  build-and-test:
+  build:
     executor:
       name: node/default
     steps:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install
+            - run: npm run build
+
+  test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
             - run: npm test
     
   publish-stable:
@@ -28,7 +36,6 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install
             - run: npm run deploy-stable
 
   publish-next:
@@ -38,7 +45,6 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install
             - run: npm run deploy-next
             
 workflows:
@@ -49,20 +55,33 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - build-and-test
-      # - publish-stable:
-      #     requires:
-      #       - install
-      #     filters:
-      #       tags:
-      #         only: /10.\d+.\d+(?!-\w+.\d)/
-      #       branches:
-      #         ignore: /.*/
-      # - publish-next:
-      #     requires:
-      #       - install
-      #     filters:
-      #       tags:
-      #         only: /10.\d+.\d+(-\w+.\d)/
-      #       branches:
-      #         ignore: /.*/
+      - build:
+          requires:
+            - install
+          filters:
+            tags:
+              only: /.*/
+      - test:
+          requires:
+            - install
+          filters:
+            tags:
+              only: /.*/
+      - publish-stable:
+          requires:
+            - build
+            - test
+          filters:
+            tags:
+              only: /10.\d+.\d+(?!-\w+.\d)/
+            branches:
+              ignore: /.*/
+      - publish-next:
+          requires:
+            - build
+            - test
+          filters:
+            tags:
+              only: /10.\d+.\d+(-\w+.\d)/
+            branches:
+              ignore: /.*/
